@@ -31,6 +31,10 @@ func handleOutput(ch <-chan byte) {
 
 func main() {
 	fmt.Println("\033[1;37;44m -= tppdr Server =- \033[0m")
+	if len(os.Args) < 2 {
+		fmt.Println("missing expected paramter 'xdotool windowID'")
+		os.Exit(1)
+	}
 	fmt.Println("awaiting connections ...")
 
 	// routing channels in order to use the ghc:
