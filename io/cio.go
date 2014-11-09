@@ -17,12 +17,12 @@ package io
 //
 // // Set the terminal into raw mode, deactivate echos
 // void csetraw() {
-//   system("/bin/stty raw -echo");
+//   int _ = system("/bin/stty raw -echo");
 // }
 //
 // // Set the terminal back into cooked mode, enable echos
 // void csetcooked() {
-//   system("/bin/stty cooked echo");
+//   int _ = system("/bin/stty cooked echo");
 // }
 //
 // // go for it:

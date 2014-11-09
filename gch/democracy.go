@@ -34,7 +34,7 @@ func (d *Democrat) delayedOut(out chan<- byte) {
 	}
 }
 
-func democratize(b map[int]byte) (maxKey byte) {
+func democratize(b map[int]byte) (maxKey byte) { // don't call with empty list!
 	votes := make(map[byte]int)
 	for _, v := range b {
 		votes[v] += 1 // accumulate frequency of each Keycode
