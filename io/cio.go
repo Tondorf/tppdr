@@ -30,10 +30,12 @@ import "C"
 
 func setRaw() {
 	C.csetraw()
+	//exec.Command("/bin/stty raw -echo").Run()  // should work, but it doesnt
 }
 
 func setCooked() {
 	C.csetcooked()
+	//exec.Command("/bin/stty", "cooked", "echo").Run()  // dito
 }
 
 func getChar() (int, error) {
