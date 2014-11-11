@@ -41,8 +41,9 @@ func main() {
 	chi := make(chan byte)
 	cho := make(chan byte)
 
-	// connect the gch using a given Algo:
-	go gch.Process(new(gch.Udi), chi, cho)
+	// Governmental Algorithm for GCH
+	// Should be interchangeable on-the-fly later
+	go gch.Process(new(gch.Democrat), chi, cho)
 
 	// forward output to ... hum, well: to the output :p
 	go handleOutput(cho)
