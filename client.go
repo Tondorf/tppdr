@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/TondorfHacking/tppdrlib/io"
-	"github.com/TondorfHacking/tppdrlib/net"
+	"github.com/Tondorf/tppdrlib/io"
+	"github.com/Tondorf/tppdrlib/net"
 	//	"log"
 )
 

@@ -6,9 +6,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/TondorfHacking/tppdrlib/gch"
-	"github.com/TondorfHacking/tppdrlib/gio"
-	"github.com/TondorfHacking/tppdrlib/net"
+	"github.com/Tondorf/tppdrlib/gch"
+	"github.com/Tondorf/tppdrlib/gio"
+	"github.com/Tondorf/tppdrlib/net"
 )
 
 func handleOutput(ch <-chan byte) {
