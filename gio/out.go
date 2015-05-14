@@ -4,12 +4,12 @@ package gio
 // // for the moment just call xdotool
 // // replace with handler later on...
 //
-// #include <stdlib.h>
+// //#include <stdlib.h>
 //
-// void cexec(char *c) {
-//   system(c);
-//   free(c);
-// }
+// //void cexec(char *c) {
+// //  system(c);
+// //  free(c);
+// //}
 import "C"
 import "os/exec"
 import "strconv"
