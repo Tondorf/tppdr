@@ -10,8 +10,8 @@ func GetActiveWindow() (windowID string) {
 
 	time.Sleep(1000 * time.Millisecond) // wait for game window to open
 
-	cmd := exec.Command("xdotool", "getwindowfocus")
-	//cmd := exec.Command("xdotool", "getactivewindow")
+	cmd := exec.Command("xdotool", "getactivewindow")
+	//cmd := exec.Command("xdotool", "getwindowfocus")
 
 	var out bytes.Buffer
 	cmd.Stdout = &out

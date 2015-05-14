@@ -21,10 +21,8 @@ func handleOutput(ch <-chan byte, windowID string) {
 		}
 
 		// temporary workaround:
-		// currently we are sending key events
-		// via syscall to xdotool - not nice, but hey: at least it works ;)
-		//arg1 := os.Args[1]
-		//win, _ := strconv.ParseInt(arg1, 10, 64)
+		// currently we are sending key events via syscall to xdotool
+		// not nice, but hey: at least it works ;)
 		gio.SendKey(windowID, v)
 	}
 }
