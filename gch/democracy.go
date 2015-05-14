@@ -5,6 +5,8 @@ import (
 	"time"
 )
 
+// Democrat - accumulate Key presses and send the most desired one to the game
+
 const LEGISLATIVE_PERIOD = 2 // Ticks per second
 
 type Democrat struct {
@@ -41,7 +43,7 @@ func democratize(b map[int]byte) (maxKey byte) { // don't call with empty list!
 	}
 	fmt.Println(votes)
 
-	maxAmount := 0
+	var maxAmount int
 	for key, amount := range votes { // determine most common Keycode
 		if amount > maxAmount {
 			maxAmount = amount

@@ -1,4 +1,4 @@
-package gch
+package gch // gch = game control heuristics
 
 type Algo interface {
 	Proc(in <-chan byte, out chan<- byte)
