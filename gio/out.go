@@ -11,15 +11,18 @@ package gio
 //   free(c);
 // }
 import "C"
+import "os/exec"
 import "strconv"
 
-const bin = "/usr/bin/xdotool"
+const xdotool = "/usr/bin/xdotool"
 
 func SendKey(window int, keycode byte) (err error) {
 	s := MapKey(keycode)
 	if s != "" {
-		var cs *C.char = C.CString(bin + " key --window " + strconv.Itoa(window) + " --delay 25 " + s)
-		_, err = C.cexec(cs)
+		//var cs *C.char = C.CString(bin + " key --window " + strconv.Itoa(window) + " --delay 25 " + s)
+		cmd := exec.Command(xdotool, "key", "--window", strconv.Itoa(window), "--delay 25 ", s)
+		//_, err = C.cexec(cs)
+		cmd.Start()
 	}
 	return
 }
