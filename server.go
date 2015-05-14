@@ -6,9 +6,9 @@ import (
 	"os/exec"
 	"time"
 
-	"github.com/Tondorf/tppdrlib/gch"
-	"github.com/Tondorf/tppdrlib/gio"
-	"github.com/Tondorf/tppdrlib/net"
+	"github.com/Tondorf/tppdr/gch"
+	"github.com/Tondorf/tppdr/gio"
+	"github.com/Tondorf/tppdr/net"
 )
 
 func handleOutput(ch <-chan byte, wid int) {
