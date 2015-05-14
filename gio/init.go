@@ -1,21 +1,35 @@
 package gio
 
-import "fmt"
+import "time"
 import "bytes"
-import "strconv"
+import "strings"
+
 import "os/exec"
 
-func GetActiveWindow() (windowID int) {
+func GetActiveWindow() (windowID string) {
 
-	cmd := exec.Command("xdotool", "getactivewindow")
+	time.Sleep(1000 * time.Millisecond) // wait for game window to open
+
+	cmd := exec.Command("xdotool", "getwindowfocus")
+	//cmd := exec.Command("xdotool", "getactivewindow")
+
 	var out bytes.Buffer
 	cmd.Stdout = &out
-	err := cmd.Run()
-	if err != nil {
-		fmt.Println("Error getting active window: ", err.Error())
-	}
+	cmd.Run()
 
-	i, _ := strconv.Atoi(out.String())
-	return i
+	// TrimSpace removes newlines at the end
+	return strings.TrimSpace(out.String())
+}
 
+func SelectWindow() (windowID string) {
+
+	//fmt.Println("Plase click in the Game window.")
+	cmd := exec.Command("xdotool", "selectwindow")
+
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	cmd.Run()
+
+	// TrimSpace removes newlines at the end
+	return strings.TrimSpace(out.String())
 }

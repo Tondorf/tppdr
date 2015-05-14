@@ -11,7 +11,7 @@ import (
 	"github.com/Tondorf/tppdr/net"
 )
 
-func handleOutput(ch <-chan byte, wid int) {
+func handleOutput(ch <-chan byte, windowID string) {
 	for {
 		v, ok := <-ch
 		if ok {
@@ -25,7 +25,7 @@ func handleOutput(ch <-chan byte, wid int) {
 		// via syscall to xdotool - not nice, but hey: at least it works ;)
 		//arg1 := os.Args[1]
 		//win, _ := strconv.ParseInt(arg1, 10, 64)
-		gio.SendKey(wid, v)
+		gio.SendKey(windowID, v)
 	}
 }
 
@@ -43,7 +43,9 @@ func main() {
 	go cmd.Start()
 	defer cmd.Wait()
 
-	var wid int = gio.GetActiveWindow()
+	// determine window id for xdotool
+	var windowID string = gio.GetActiveWindow()
+	fmt.Println(windowID)
 
 	// routing channels in order to use the ghc:
 	chi := make(chan byte)
@@ -51,10 +53,11 @@ func main() {
 
 	// Governmental Algorithm for GCH
 	// Should be interchangeable on-the-fly later
-	go gch.Process(new(gch.Democrat), chi, cho)
+	go gch.Process(new(gch.Anarchist), chi, cho)
+	//go gch.Process(new(gch.Democrat), chi, cho)
 
 	// forward output to ... hum, well: to the output :p
-	go handleOutput(cho, wid)
+	go handleOutput(cho, windowID)
 
 	// run the server
 	go net.Listen(1234, chi)
