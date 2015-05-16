@@ -2,8 +2,6 @@ package io
 
 type Keyboard int
 
-//type kwrap int
-
 func (k *Keyboard) GetChar() (int, error) {
 	return getChar()
 }

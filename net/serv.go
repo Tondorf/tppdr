@@ -16,17 +16,9 @@ type Client struct {
 type Net int
 
 func (c Client) readfrom(ch chan<- Key) error {
-	//defer close(ch)
-	//buf := make([]byte, 1024)
+	defer close(ch)
 	dec := gob.NewDecoder(c.conn) // Decoder
 	for {
-		//n, err := c.conn.Read(buf)
-		//if err != nil || n <= 0 {
-		//	return err
-		//}
-		//for _, v := range buf[0:n] {
-		//	ch <- v
-		//}
 		var k Key
 		err := dec.Decode(&k)
 		if err == io.EOF {
@@ -42,7 +34,7 @@ func (c Client) readfrom(ch chan<- Key) error {
 }
 
 func connHandler(con net.Conn, ch chan<- Key) {
-	//defer con.Close()
+	defer con.Close()
 
 	cl := Client{con}
 	go cl.readfrom(ch)

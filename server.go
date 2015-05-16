@@ -59,10 +59,6 @@ func main() {
 
 	// run the server
 	go net.Listen(1234, chi)
-	//err := net.Listen(1234, chi)
-	//if err != nil {
-	//	fmt.Println("Error listening: ", err.Error())
-	//}
 
 	fmt.Println("setup done")
 }

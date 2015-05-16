@@ -23,7 +23,7 @@ func GetActiveWindow() (windowID string) {
 
 func SelectWindow() (windowID string) {
 
-	//fmt.Println("Plase click in the Game window.")
+	fmt.Println("Plase click in the Game window.")
 	cmd := exec.Command("xdotool", "selectwindow")
 
 	var out bytes.Buffer

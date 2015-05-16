@@ -13,7 +13,6 @@ func SendTo(srv string, ch <-chan Key) error {
 	}
 	defer conn.Close()
 
-	//buf := make([]byte, 1024)
 	for {
 		k, ok := <-ch
 		if ok == false {
@@ -25,13 +24,6 @@ func SendTo(srv string, ch <-chan Key) error {
 		if err != nil {
 			fmt.Println("encode error:", err)
 		}
-		//buf[0] = v
-		//n, err := conn.Write(buf)
-		//n, err := conn.Write(buf[0:1])
-		//if err != nil || n <= 0 {
-		//	fmt.Println(err)
-		//	return err
-		//}
 	}
 	return nil
 }
