@@ -3,6 +3,7 @@ package net
 import (
 	"encoding/gob"
 	"fmt"
+	"io"
 	"net"
 	"strconv"
 )
@@ -28,8 +29,12 @@ func (c Client) readfrom(ch chan<- Key) error {
 		//}
 		var k Key
 		err := dec.Decode(&k)
-		if err != nil {
+		if err == io.EOF {
+			fmt.Println("decode EOF:", err)
+			return nil
+		} else if err != nil {
 			fmt.Println("decode error:", err)
+			return err
 		}
 		ch <- k // send key to the channel
 	}
