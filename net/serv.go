@@ -51,6 +51,7 @@ func Listen(port int, ch chan<- Key) error {
 		if err != nil {
 			continue
 		}
+		fmt.Println("New connection from", conn.RemoteAddr())
 		go connHandler(conn, ch)
 	}
 	return nil

@@ -4,6 +4,8 @@ import (
 	"encoding/gob"
 	"fmt"
 	"net"
+
+	"github.com/rthornton128/goncurses"
 )
 
 func SendTo(srv string, ch <-chan Key) error {
@@ -19,11 +21,14 @@ func SendTo(srv string, ch <-chan Key) error {
 		k, ok := <-ch
 		if ok == false {
 			fmt.Println("channel error")
+			goncurses.End()
 			return nil
 		}
 		err := enc.Encode(k)
 		if err != nil {
 			fmt.Println("encode error:", err)
+			goncurses.End()
+			return nil
 		}
 	}
 	return nil

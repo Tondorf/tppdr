@@ -13,6 +13,7 @@ func (n *NCursesKeyboard) Listen(handler func(net.Key)) {
 		fmt.Println(err)
 	}
 	//stdscr.Clear()
+	defer goncurses.End()
 	stdscr.Keypad(true)
 	for {
 		key := stdscr.GetChar()

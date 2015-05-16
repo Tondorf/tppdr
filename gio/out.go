@@ -21,7 +21,7 @@ const xdotool = "/usr/bin/xdotool"
 func SendKey(windowID string, nkey net.Key) (err error) {
 	key := mapKey(nkey)
 	if key != "" {
-		xcmd := xdotool + " key --delay 25 --window " + windowID + " " + key
+		xcmd := xdotool + " key --window " + windowID + " " + key
 		var cs *C.char = C.CString(xcmd)
 		fmt.Println("xcmd:", xcmd)
 		//cmd := exec.Command(xcmd)
@@ -32,10 +32,14 @@ func SendKey(windowID string, nkey net.Key) (err error) {
 }
 
 var Mapping = map[goncurses.Key]string{
-	goncurses.KEY_UP:    "Up",
-	goncurses.KEY_DOWN:  "Down",
-	goncurses.KEY_LEFT:  "Left",
-	goncurses.KEY_RIGHT: "Right",
+	goncurses.KEY_UP:     "Up",
+	goncurses.KEY_DOWN:   "Down",
+	goncurses.KEY_LEFT:   "Left",
+	goncurses.KEY_RIGHT:  "Right",
+	goncurses.KEY_ENTER:  "Return",
+	goncurses.KEY_RETURN: "Return",
+	27:                   "Escape",
+	' ':                  "space",
 }
 
 // wrap me if you can
