@@ -7,7 +7,7 @@ package gio
 // #include <stdlib.h>
 //
 // void cexec(char *c) {
-//   system(c);
+//   int n = system(c); // get rid of warning, lol
 //   free(c);
 // }
 import "C"

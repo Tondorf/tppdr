@@ -1,5 +1,6 @@
 package gio
 
+import "fmt"
 import "time"
 import "bytes"
 import "strings"
