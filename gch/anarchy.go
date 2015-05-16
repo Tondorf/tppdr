@@ -15,8 +15,8 @@ type Anarchist struct {
 func (a *Anarchist) Proc(in <-chan net.Key, out chan<- net.Key) {
 	fmt.Println("ANARCHY!!!")
 	for {
-		b := <-in      // grab new event
-		fmt.Println(b) // print it
-		out <- b       // forward it
+		b := <-in // grab new event
+		//fmt.Println(b) // print it
+		out <- b // forward it
 	}
 }

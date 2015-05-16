@@ -15,15 +15,14 @@ func handleOutput(ch <-chan net.Key, windowID string) {
 	for {
 		v, ok := <-ch
 		if ok {
-			fmt.Println("ch: ", v)
+			//fmt.Println("ch: ", v)
+			// temporary workaround:
+			// currently we are sending key events via syscall to xdotool
+			// not nice, but hey: at least it works ;)
+			gio.SendKey(windowID, v)
 		} else {
 			time.Sleep(1 * time.Second)
 		}
-
-		// temporary workaround:
-		// currently we are sending key events via syscall to xdotool
-		// not nice, but hey: at least it works ;)
-		gio.SendKey(windowID, v)
 	}
 }
 

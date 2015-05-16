@@ -18,8 +18,9 @@ type Net int
 func (c Client) readfrom(ch chan<- Key) error {
 	defer close(ch)
 	dec := gob.NewDecoder(c.conn) // Decoder
+
 	for {
-		var k Key
+		k := &Key{}
 		err := dec.Decode(&k)
 		if err == io.EOF {
 			fmt.Println("decode EOF:", err)
@@ -28,14 +29,12 @@ func (c Client) readfrom(ch chan<- Key) error {
 			fmt.Println("decode error:", err)
 			return err
 		}
-		ch <- k // send key to the channel
+		ch <- *k // send key to the channel
 	}
 	return nil
 }
 
 func connHandler(con net.Conn, ch chan<- Key) {
-	defer con.Close()
-
 	cl := Client{con}
 	go cl.readfrom(ch)
 }
