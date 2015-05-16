@@ -11,7 +11,7 @@ import (
 	"github.com/Tondorf/tppdr/net"
 )
 
-func handleOutput(ch <-chan byte, windowID string) {
+func handleOutput(ch <-chan net.Key, windowID string) {
 	for {
 		v, ok := <-ch
 		if ok {
@@ -46,8 +46,8 @@ func main() {
 	fmt.Println(windowID)
 
 	// routing channels in order to use the ghc:
-	chi := make(chan byte)
-	cho := make(chan byte)
+	chi := make(chan net.Key)
+	cho := make(chan net.Key)
 
 	// Governmental Algorithm for GCH
 	// Should be interchangeable on-the-fly later

@@ -1,10 +1,14 @@
 package gch // gch = game control heuristics
 
+import (
+	"github.com/Tondorf/tppdr/net"
+)
+
 type Algo interface {
-	Proc(in <-chan byte, out chan<- byte)
+	Proc(in <-chan net.Key, out chan<- net.Key)
 }
 
-func Process(a Algo, in <-chan byte, out chan<- byte) {
+func Process(a Algo, in <-chan net.Key, out chan<- net.Key) {
 	a.Proc(in, out)
 }
 
@@ -18,8 +22,8 @@ const (
 
 var MODE Gamemode // = Anarchy
 
-var in chan byte
-var out chan byte
+var in chan net.Key
+var out chan net.Key
 
 func SetMode(newM Gamemode) {
 	MODE = newM

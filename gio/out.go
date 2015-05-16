@@ -13,11 +13,13 @@ package gio
 import "C"
 import "fmt"
 import "os/exec"
+import "github.com/Tondorf/tppdr/net"
+import "github.com/rthornton128/goncurses"
 
 const xdotool = "/usr/bin/xdotool"
 
-func SendKey(windowID string, keycode byte) (err error) {
-	key := MapKey(keycode)
+func SendKey(windowID string, nkey net.Key) (err error) {
+	key := mapKey(nkey)
 	if key != "" {
 		//var cs *C.char = C.CString(xdotool + " key --window " + strconv.Itoa(window) + " --delay 25 " + s)
 		xcmd := xdotool + " key --delay 25 --window " + windowID + " " + key
@@ -29,8 +31,21 @@ func SendKey(windowID string, keycode byte) (err error) {
 	return
 }
 
+//Mapping := map[goncurses.Key]string{
+//    KEY_LEFT: "Left",
+//}
+
 // wrap me if you can
-func MapKey(keycode byte) string {
-	fmt.Println(string(keycode))
-	return string(keycode)
+func mapKey(nkey net.Key) string {
+	//fmt.Println(string(keycode))
+
+	//var cursesKey goncurses.Key
+	//cursesKey = key.K
+
+	//var keyStr string
+	//keyStr = Mapping[cursesKey]
+
+	//return keyStr
+
+	return goncurses.KeyString(nkey.K) // huehue
 }
