@@ -8,6 +8,7 @@ type NCursesKeyboard int
 
 func (n *NCursesKeyboard) Listen(handler func(net.Key)) {
 	stdscr, err := goncurses.Init()
+	stdscr.Timeout(-1) // enable blocking mode
 	if err != nil {
 		fmt.Println(err)
 	}
