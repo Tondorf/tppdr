@@ -11,15 +11,18 @@ package gio
 // //  free(c);
 // //}
 import "C"
+import "fmt"
 import "os/exec"
 
 const xdotool = "/usr/bin/xdotool"
 
 func SendKey(windowID string, keycode byte) (err error) {
-	s := MapKey(keycode)
-	if s != "" {
-		//var cs *C.char = C.CString(bin + " key --window " + strconv.Itoa(window) + " --delay 25 " + s)
-		cmd := exec.Command(xdotool, "key", "--window", windowID, "--delay 25 ", s)
+	key := MapKey(keycode)
+	if key != "" {
+		//var cs *C.char = C.CString(xdotool + " key --window " + strconv.Itoa(window) + " --delay 25 " + s)
+		xcmd := xdotool + " key --delay 25 --window " + windowID + " " + key
+		fmt.Println(xcmd)
+		cmd := exec.Command(xcmd)
 		//_, err = C.cexec(cs)
 		cmd.Start()
 	}
@@ -28,5 +31,6 @@ func SendKey(windowID string, keycode byte) (err error) {
 
 // wrap me if you can
 func MapKey(keycode byte) string {
+	fmt.Println(string(keycode))
 	return string(keycode)
 }
