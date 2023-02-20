@@ -18,10 +18,15 @@ import (
 
 const xdotool = "/usr/bin/xdotool"
 
-func SendKey(windowID string, nkey common.GameEvent) (err error) {
-	key := mapKey(nkey.Key)
+func SendKey(windowID string, ge common.GameEvent) (err error) {
+	key := mapKey(ge.Key)
 	if key != "" {
-		xcmd := xdotool + " key --window " + windowID + " " + key
+		var xcmd string
+		if ge.Typ == common.Press {
+			xcmd = xdotool + " keydown --window " + windowID + " " + key
+		} else if ge.Typ == common.Release {
+			xcmd = xdotool + " keyup --window " + windowID + " " + key
+		}
 		var cs *C.char = C.CString(xcmd)
 		fmt.Println("xcmd:", xcmd)
 		//cmd := exec.Command(xcmd)

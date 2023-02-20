@@ -63,10 +63,12 @@ func main() {
 	webserver := web.NewWebserver(chi)
 	go webserver.Listen()
 
-	// Governmental Algorithm for GCH
-	// Should be interchangeable on-the-fly later
-	go gch.Process(new(gch.Anarchist), chi, cho)
-	//go gch.Process(new(gch.Democrat), chi, cho)
+	// Initialize Governmental Algorithm for GCH
+	// Intended to be interchangeable on-the-fly later
+	gov := new(gch.Anarchist)
+
+	// run the Game Control Heuristics
+	go gch.Process(gov, chi, cho)
 
 	// forward output to ... hum, well: to the output :p
 	go handleOutput(cho, windowID)
