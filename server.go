@@ -9,6 +9,7 @@ import (
 	"github.com/Tondorf/tppdr/gch"
 	"github.com/Tondorf/tppdr/gio"
 	"github.com/Tondorf/tppdr/net"
+	"github.com/Tondorf/tppdr/web"
 )
 
 func handleOutput(ch <-chan net.Key, windowID string) {
@@ -31,7 +32,7 @@ func main() {
 	var gamebin string
 	if len(os.Args) < 2 {
 		fmt.Println("Missing parameter: Game to run")
-		defaultGame := "/usr/games/bin/supertux"
+		defaultGame := "/usr/games/supertux2"
 		// equivalent to Python's `if os.path.exists(filename)`
 		if _, err := os.Stat(defaultGame); err == nil {
 			fmt.Println("... but found Default Game:\n    " + defaultGame)
@@ -57,6 +58,9 @@ func main() {
 	// routing channels in order to use the ghc:
 	chi := make(chan net.Key)
 	cho := make(chan net.Key)
+
+	// start webserver
+	go web.Webserver()
 
 	// Governmental Algorithm for GCH
 	// Should be interchangeable on-the-fly later

@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+    <title>tppdr</title>
+    <script type="text/javascript" language="JavaScript">
+        function pressFunction(event) {
+            console.log('down', event.key);
+            const req = new XMLHttpRequest();
+            req.open("GET", "/press?key="+event.key, true);
+            req.send(null);
+        }
+        function releaseFunction(event) {
+            console.log('up', event.key);
+            const req = new XMLHttpRequest();
+            req.open("GET", "/release?key="+event.key, true);
+            req.send(null);
+        }
+    </script>
+</head>
+<body onkeydown="pressFunction(event)" onkeyup="releaseFunction(event)">
+    <h1>tppdr</h1>
+</body>
+</html>
