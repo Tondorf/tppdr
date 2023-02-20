@@ -1,13 +1,13 @@
 package gch
 
 import (
-	"github.com/Tondorf/tppdr/net"
+	"github.com/Tondorf/tppdr/common"
 )
 
 type Patriot struct {
 	// To be done
 }
 
-func (p *Patriot) Proc(in <-chan net.Key, out chan<- net.Key) {
+func (p *Patriot) Proc(in <-chan common.BrowserEvent, out chan<- common.GameEvent) {
 	// To be done
 }

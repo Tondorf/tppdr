@@ -2,8 +2,7 @@ package gch
 
 import (
 	"fmt"
-
-	"github.com/Tondorf/tppdr/net"
+	"github.com/Tondorf/tppdr/common"
 )
 
 // Anarchist - just forward all input
@@ -12,11 +11,14 @@ type Anarchist struct {
 	// no data structures needed
 }
 
-func (a *Anarchist) Proc(in <-chan net.Key, out chan<- net.Key) {
+func (a *Anarchist) Proc(in <-chan common.BrowserEvent, out chan<- common.GameEvent) {
 	fmt.Println("ANARCHY!!!")
 	for {
-		b := <-in // grab new event
-		//fmt.Println(b) // print it
-		out <- b // forward it
+		be := <-in // grab new event
+		ge := common.GameEvent{
+			Key: be.Key,
+			Typ: be.Typ,
+		}
+		out <- ge // forward it
 	}
 }

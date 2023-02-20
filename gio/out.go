@@ -11,15 +11,15 @@ package gio
 //   free(c);
 // }
 import "C"
-import "fmt"
-
-import "github.com/Tondorf/tppdr/net"
-import "github.com/rthornton128/goncurses"
+import (
+	"fmt"
+	"github.com/Tondorf/tppdr/common"
+)
 
 const xdotool = "/usr/bin/xdotool"
 
-func SendKey(windowID string, nkey net.Key) (err error) {
-	key := mapKey(nkey)
+func SendKey(windowID string, nkey common.GameEvent) (err error) {
+	key := mapKey(nkey.Key)
 	if key != "" {
 		xcmd := xdotool + " key --window " + windowID + " " + key
 		var cs *C.char = C.CString(xcmd)
@@ -31,26 +31,18 @@ func SendKey(windowID string, nkey net.Key) (err error) {
 	return
 }
 
-var Mapping = map[goncurses.Key]string{
-	goncurses.KEY_UP:     "Up",
-	goncurses.KEY_DOWN:   "Down",
-	goncurses.KEY_LEFT:   "Left",
-	goncurses.KEY_RIGHT:  "Right",
-	goncurses.KEY_ENTER:  "Return",
-	goncurses.KEY_RETURN: "Return",
-	27:                   "Escape",
-	' ':                  "space",
+var Mapping = map[string]string{
+	"ArrowUp":    "Up",
+	"ArrowDown":  "Down",
+	"ArrowLeft":  "Left",
+	"ArrowRight": "Right",
+	"Enter":      "Return",
+	"Escape":     "Escape",
+	" ":          "space",
 }
 
 // wrap me if you can
-func mapKey(nkey net.Key) string {
-	//fmt.Println(string(keycode))
-
-	var cursesKey = nkey.K
-
-	var keyStr = Mapping[cursesKey]
-
+func mapKey(input string) (result string) {
+	var keyStr = Mapping[input]
 	return keyStr
-
-	return goncurses.KeyString(nkey.K) // huehue
 }

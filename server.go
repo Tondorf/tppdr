@@ -2,17 +2,17 @@ package main
 
 import (
 	"fmt"
+	"github.com/Tondorf/tppdr/common"
 	"os"
 	"os/exec"
 	"time"
 
 	"github.com/Tondorf/tppdr/gch"
 	"github.com/Tondorf/tppdr/gio"
-	"github.com/Tondorf/tppdr/net"
 	"github.com/Tondorf/tppdr/web"
 )
 
-func handleOutput(ch <-chan net.Key, windowID string) {
+func handleOutput(ch <-chan common.GameEvent, windowID string) {
 	for {
 		v, ok := <-ch
 		if ok {
@@ -56,11 +56,12 @@ func main() {
 	fmt.Println(windowID)
 
 	// routing channels in order to use the ghc:
-	chi := make(chan net.Key)
-	cho := make(chan net.Key)
+	chi := make(chan common.BrowserEvent)
+	cho := make(chan common.GameEvent)
 
 	// start webserver
-	go web.Webserver()
+	webserver := web.NewWebserver(chi)
+	go webserver.Listen()
 
 	// Governmental Algorithm for GCH
 	// Should be interchangeable on-the-fly later
@@ -69,9 +70,6 @@ func main() {
 
 	// forward output to ... hum, well: to the output :p
 	go handleOutput(cho, windowID)
-
-	// run the server
-	go net.Listen(1234, chi)
 
 	fmt.Println("setup done")
 }
